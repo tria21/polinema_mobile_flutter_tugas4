@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'input.dart';
 import 'result.dart';
 import 'convert.dart';
+import 'riwayat.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,12 +23,14 @@ class _MyAppState extends State<MyApp> {
   double _reamur = 0;
   final inputController = TextEditingController();
   var listItem = ["Kelvin", "Reamur"];
+  List<String> listViewItem = List<String>(); //membuat variabel list bertipe string
   String _newValue = "Kelvin";
   double _result = 0;
 
   void dropdownOnChanged(String changeValue) {
     setState(() {
       _newValue = changeValue;
+      perhitungan(); //untuk auto konvert ketika mengganti value dropdown
       });
   }
 
@@ -38,6 +41,8 @@ class _MyAppState extends State<MyApp> {
         _result = _inputUser + 273;
       else
         _result = (4 / 5) * _inputUser;
+        //menampilkan riwayat konversi
+        listViewItem.add("$_newValue : $_result");
     });
   }
 
@@ -74,7 +79,17 @@ class _MyAppState extends State<MyApp> {
                     result: _result,
                   ),
                   Convert(
-                    konvertHandler: perhitungan,
+                    konvertHandler: perhitungan
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                    child: Text(
+                      "Riwayat Konversi",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15,),
+                  ),
+                  ),
+                  Expanded(
+                    child: Riwayat(listViewItem: listViewItem)
                   ),
                 ],
               ),

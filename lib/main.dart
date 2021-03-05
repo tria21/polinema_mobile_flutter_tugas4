@@ -4,6 +4,7 @@ import 'input.dart';
 import 'result.dart';
 import 'convert.dart';
 import 'riwayat.dart';
+import 'dropdown.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,8 +23,8 @@ class _MyAppState extends State<MyApp> {
   double _kelvin = 0;
   double _reamur = 0;
   final inputController = TextEditingController();
-  var listItem = ["Kelvin", "Reamur"];
-  List<String> listViewItem = List<String>(); //membuat variabel list bertipe string
+  var listItem = ["Kelvin", "Reamur"]; //item untuk pilihan pada dropdown
+  List<String> listViewItem = List<String>(); //listViewItem digunakan untuk membuat item dari list riwayat
   String _newValue = "Kelvin";
   double _result = 0;
 
@@ -65,16 +66,7 @@ class _MyAppState extends State<MyApp> {
             child: Column(
             children: [
               Input(etInput: etInput),
-              DropdownButton<String>(
-                    items: listItem.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    value: _newValue,
-                    onChanged: dropdownOnChanged,
-                  ),
+              DropdownKonversi(listItem: listItem, newValue: _newValue, dropdownOnChanged : dropdownOnChanged),
                   Result(
                     result: _result,
                   ),
@@ -98,3 +90,4 @@ class _MyAppState extends State<MyApp> {
         );
   }
 }
+
